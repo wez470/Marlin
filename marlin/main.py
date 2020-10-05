@@ -1,39 +1,41 @@
-# Program to explain how to use File chooser in kivy
-
-# import kivy module      
 import kivy
-
-# base Class of your App inherits from the App class.      
-# app:always refers to the instance of your application     
-from kivy.app import App
-
-# this restrict the kivy version i.e    
-# below this kivy version you cannot    
-# use the app or software    
-kivy.require('1.9.0')
-
-# BoxLayout arranges widgets in either in 
-# a vertical fashion that is one on top of 
-# another or in a horizontal fashion 
-# that is one after another.  
+import os
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import ObjectProperty
+from kivy.uix.popup import Popup
+from kivy.app import App
+kivy.require('1.11.0')
 
 
-# create the layout class
-class Filechooser(BoxLayout):
-    def select(self, *args):
-        try:
-            self.label.text = args[1][0]
-        except:
-            pass
+class FileLoader(BoxLayout):
+    load = ObjectProperty(None)
+    cancel = ObjectProperty(None)
+
+
+class Root(GridLayout):
+    label = ObjectProperty(None)
+
+    def dismiss_popup(self):
+        self._popup.dismiss()
+
+    def show_load(self):
+        content = FileLoader(load=self.load, cancel=self.dismiss_popup)
+        self._popup = Popup(title="Load file", content=content,
+                            size_hint=(0.9, 0.9))
+        self._popup.open()
+
+    def load(self, path, filename):
+        with open(os.path.join(path, filename[0])) as stream:
+            self.label.text = stream.read()
+
+        self.dismiss_popup()
 
 
 # Create the App class
 class MarlinApp(App):
     def build(self):
-        return Filechooser()
-
-    # run the App
+        return Root()
 
 
 if __name__ == '__main__':
