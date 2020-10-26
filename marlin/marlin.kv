@@ -1,39 +1,47 @@
 #, kv file implementation
 
 <Root>:
-    #text_input: text_input
     cols: 1
     col_default_width: 200
     rows: 2
     label: label
 
     GridLayout:
-        cols: 1
+        cols: 3
         rows: 1
+
+        Button:
+            size_hint: (None, None)
+            height: 60
+            width: 140
+            text: 'Load'
+            on_release: root.show_load()
+
         Label:
-            id: label
-            #size_hint_y: .1, 0.2
-            color: 0.5, 0, 0, 1
-            text: 'My Label'
+            text_size: self.size
+            padding_x: 10
+            halign: 'right'
+            valign: 'middle'
+            size_hint: (None, None)
+            text: 'WPM:'
             font_size: 40
+            height: 60
+            width: 140
+
+        TextInput:
+            size_hint: (None, None)
+            height: 60
+            width: 100
+            id: text_input
+            text: ''
 
     GridLayout:
         cols: 1
         rows: 1
-
-        size_hint_y: 0.1
-        height: 30
-        Button:
-            text: 'Load'
-            on_release: root.show_load()
-
-        #TextInput:
-        #    id: text_input
-        #    text: ''
-
-        #    RstDocument:
-        #        text: text_input.text
-        #        show_errors: True
+        Label:
+            id: label
+            text: 'My Label'
+            font_size: 40
 
 
 <FileLoader>:
@@ -45,44 +53,14 @@
             id: filechooser
 
         BoxLayout:
-            size_hint_y: None
-            height: 30
+            size_hint_max_y: 90
+            size_hint_y: 0.1
+            padding: (10, 20)
+            valign: 'bottom'
+
             Button:
                 text: "Cancel"
                 on_release: root.cancel()
             Button:
                 text: "Load"
                 on_release: root.load(filechooser.path, filechooser.selection)
-
-#<Filechooser>:
-#
-#    label: label
-#
-#    # Providing the orentation
-#    #orientation: 'vertical'
-#    cols: 2
-#    col_default_width: 200
-#    rows: 1
-#
-#    # Creating the File list / icon view
-#
-#    BoxLayout:
-#
-#        # Creating list view one side
-#        FileChooserListView:
-#            canvas.before:
-#                Color:
-#                    rgb: 0, 0, 0
-#                Rectangle:
-#                    pos: self.pos
-#                    size: self.size
-#            on_selection: root.select(*args)
-#
-#    # Adding label
-#    Label:
-#        id: label
-#        size_hint_y: .1
-#        canvas.before:
-#            Rectangle:
-#                pos: self.pos
-#                size: self.size
