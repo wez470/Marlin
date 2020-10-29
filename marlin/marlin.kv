@@ -53,11 +53,16 @@
                 size: self.size
         cols: 1
         rows: 1
-        Label:
-            color: 0, 0, 0, 1
-            id: label
-            text: 'My Label'
-            font_size: 40
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            Label:
+                color: 0, 0, 0, 1
+                id: label
+                text: 'My Label'
+                font_size: 40
 
 
 <FileLoader>:
