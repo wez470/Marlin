@@ -59,8 +59,12 @@
             do_scroll_y: True
 
             Label:
+                padding: 20, 10
                 color: 0, 0, 0, 1
                 id: label
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
                 text: 'My Label'
                 font_size: 40
 
