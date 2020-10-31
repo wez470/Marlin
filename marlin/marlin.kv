@@ -38,11 +38,12 @@
             width: 140
 
         TextInput:
+            input_filter: root.validate_wpm
             size_hint: (None, None)
             height: 60
             width: 100
             id: text_input
-            text: ''
+            text: '250'
 
     GridLayout:
         canvas.before:
