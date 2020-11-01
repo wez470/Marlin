@@ -16,14 +16,15 @@ class FileLoader(BoxLayout):
 
 class Root(GridLayout):
     label = ObjectProperty(None)
+    wpm_text = ObjectProperty(None)
 
     def __init__(self, *args, **kwargs):
+        super(Root, self).__init__(*args, **kwargs)
         self.wpm = 250
         self.text_event = None
         self.text = None
         self.curr_word = 0
-
-        super(Root, self).__init__(*args, **kwargs)
+        self.wpm_text.bind(text=self.wpm_updated)
 
     def dismiss_popup(self):
         self._popup.dismiss()
@@ -43,27 +44,24 @@ class Root(GridLayout):
                 self.update_timer()
         self.dismiss_popup()
 
-    def validate_wpm(self, text, undo):
-        if undo:
-            return self.text
-        test_wpm = int(text)
-        if 0 < test_wpm < 2000:
-            self.wpm = test_wpm
+    def wpm_updated(self, _, text):
+        if text:
+            self.wpm = int(text)
             self.update_timer()
-            return text
-        return "250"
 
     def update_timer(self):
         if self.text_event is not None:
             self.text_event.cancel()
-        self.text_event = Clock.schedule_interval(lambda dt: self.update_text(), 60.0 / self.wpm)
+        if self.wpm > 0:
+            self.text_event = Clock.schedule_interval(lambda dt: self.update_text(), 60.0 / self.wpm)
 
     def update_text(self):
-        if self.curr_word >= len(self.text) - 1:
-            self.text_event.cancel()
-            return
-        self.curr_word += 1
-        self.label.text = self.text[self.curr_word]
+        if self.text is not None:
+            if self.curr_word >= len(self.text) - 1:
+                self.text_event.cancel()
+                return
+            self.curr_word += 1
+            self.label.text = self.text[self.curr_word]
 
 
 # Create the App class
