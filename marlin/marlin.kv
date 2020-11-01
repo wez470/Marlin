@@ -4,7 +4,8 @@
     cols: 1
     col_default_width: 200
     rows: 2
-    label: label
+    label: main_text
+    wpm_text: wpm_text
 
     GridLayout:
         canvas.before:
@@ -38,11 +39,11 @@
             width: 140
 
         TextInput:
-            input_filter: root.validate_wpm
+            id: wpm_text
             size_hint: (None, None)
+            input_filter: 'int'
             height: 60
             width: 100
-            id: text_input
             text: '250'
 
     GridLayout:
@@ -55,19 +56,16 @@
         cols: 1
         rows: 1
 
-        ScrollView:
-            do_scroll_x: False
-            do_scroll_y: True
-
-            Label:
-                padding: 20, 10
-                color: 0, 0, 0, 1
-                id: label
-                text_size: self.width, None
-                size_hint_y: None
-                height: self.texture_size[1]
-                text: 'My Label'
-                font_size: 40
+        Label:
+            padding: 20, 10
+            color: 0, 0, 0, 1
+            id: main_text
+            size_hint_x: 55
+            text_size: self.size
+            halign: 'left'
+            valign: 'top'
+            text: ''
+            font_size: 40
 
 
 <FileLoader>:
