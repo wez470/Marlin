@@ -24,7 +24,7 @@ class Root(GridLayout):
         self.text_event = None
         self.text = None
         self.curr_word = 0
-        self.wpm_text.bind(text=self.validate_wpm)
+        self.wpm_text.bind(text=self.wpm_updated)
 
     def dismiss_popup(self):
         self._popup.dismiss()
@@ -44,7 +44,7 @@ class Root(GridLayout):
                 self.update_timer()
         self.dismiss_popup()
 
-    def validate_wpm(self, _, text):
+    def wpm_updated(self, _, text):
         if text:
             self.wpm = int(text)
             self.update_timer()
