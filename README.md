@@ -1,3 +1,5 @@
+<img src="https://github.com/wez470/Marlin/blob/master/marlin/assets/logo/Marlin.png" alt="Marlin Logo" width="400"/>
+
 # Marlin
 Open Source Speed Reading App
 
