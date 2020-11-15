@@ -6,6 +6,7 @@
     rows: 2
     label: main_text
     wpm_text: wpm_text
+    play_button: play_button
 
     GridLayout:
         canvas.before:
@@ -14,11 +15,32 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-        padding: (20, 20)
-        size_hint: (1, None)
+        padding: 0, 20
+        size_hint: 1, None
         height: 100
-        cols: 3
+        cols: 5
         rows: 1
+
+        BoxLayout:
+            size_hint: (None, 1)
+            width: 170
+            padding: 20, 0
+
+            BoxLayout:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [60,]
+                size_hint: (None, 1)
+                width: 120
+                padding: 20, 0
+
+                Image:
+                    source: 'assets/logo/Marlin.png'
+                    size: self.texture_size
 
         Button:
             size_hint: (None, None)
@@ -26,6 +48,19 @@
             width: 140
             text: 'Load'
             on_release: root.show_load()
+
+        BoxLayout:
+            size_hint: (None, 1)
+            width: 150
+            padding: 20, 0
+
+            Button:
+                id: play_button
+                size_hint: (None, None)
+                height: 60
+                width: 140
+                text: "Play"
+                on_release: root.toggle_play()
 
         Label:
             text_size: self.size
